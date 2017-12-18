@@ -1,13 +1,26 @@
 package memelord.com.barmaster;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.io.BufferedReader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Controller controller;
     private ImageView drinks;
     private ImageView oel;
     private ImageView varmDrikke;
@@ -17,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        controller = Controller.getInstance(this);
 
         drinks = findViewById(R.id.imageDrinks);
         oel = findViewById(R.id.imageOel);
@@ -34,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
         switch (v.getId()) {
             case R.id.imageDrinks:
-                intent.putExtra("categoryPicked", "Drinks");
+                intent.putStringArrayListExtra("categoryPicked", controller.getDrinksList());
+                Log.d("TESTING", controller.getDrinksList().size() + "");
                 break;
 
             case R.id.imageOel:

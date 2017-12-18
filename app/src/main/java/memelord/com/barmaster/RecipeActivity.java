@@ -1,22 +1,39 @@
 package memelord.com.barmaster;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class RecipeActivity extends AppCompatActivity {
 
-    private TextView result;
+    private ListView result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        Bundle categoryPicked = getIntent().getExtras();
-        String resultString = categoryPicked.getString("categoryPicked");
+        result = findViewById(R.id.listviewDrinks);
 
-        result = findViewById(R.id.resultText);
-        result.setText(resultString);
+        ArrayList<String> objects = getIntent().getStringArrayListExtra("categoryPicked");
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, objects);
+        result.setAdapter(arrayAdapter);
+
+//
+//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, var);
+//        result.setAdapter(arrayAdapter);
+    }
+
+    public void onClickReturn(View view) {
+        finish();
     }
 }
