@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class RecipeActivity extends AppCompatActivity {
+public class DrinksActivity extends AppCompatActivity {
 
     private ListView result;
 

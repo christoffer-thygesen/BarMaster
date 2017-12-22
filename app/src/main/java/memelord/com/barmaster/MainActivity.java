@@ -1,21 +1,11 @@
 package memelord.com.barmaster;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
-import java.io.BufferedReader;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -46,23 +36,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+        Intent intent = new Intent(MainActivity.this, DrinksActivity.class);
         switch (v.getId()) {
             case R.id.imageDrinks:
                 intent.putStringArrayListExtra("categoryPicked", controller.getDrinksList());
-                Log.d("TESTING", controller.getDrinksList().size() + "");
                 break;
 
             case R.id.imageOel:
-                intent.putExtra("categoryPicked", "Øl");
+                intent.putStringArrayListExtra("categoryPicked", controller.getOelList());
                 break;
 
             case R.id.imageSjusser:
-                intent.putExtra("categoryPicked", "Sjusser");
+                intent.putStringArrayListExtra("categoryPicked", controller.getSjusserList());
                 break;
 
             case R.id.imageVarmeDrikke:
-                intent.putExtra("categoryPicked", "Varme Drikke");
+                intent.putStringArrayListExtra("categoryPicked", controller.getVarmeDrikkeList());
                 break;
         }
         startActivity(intent);

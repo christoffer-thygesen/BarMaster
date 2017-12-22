@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="memelord.com.barmaster.RecipeActivity">
+    tools:context="memelord.com.barmaster.DrinksActivity">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -27,8 +27,9 @@
         android:id="@+id/buttonReturn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Return"
+        android:text="Tilbage"
         android:onClick="onClickReturn"
+        android:drawableLeft="@drawable/ic_keyboard_return_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.5"
