@@ -32,6 +32,9 @@ public class Controller {
         sjusserList = new ArrayList<>();
         varmeDrikkeList = new ArrayList<>();
         populateDrinksList();
+        populateOelList();
+        populateSjusserList();
+        populateVarmeDrikkeList();
     }
 
 
@@ -75,6 +78,66 @@ public class Controller {
             }
             bufferedReader.close();
             Collections.sort(drinksList);
+
+
+        } catch (IOException e) {
+            Log.d("TESTINGREAD", e.getMessage());
+        }
+    }
+
+    private void populateOelList() {
+        InputStream inputStream = activity.getResources().openRawResource(activity.getResources().getIdentifier("oel", "raw", activity.getPackageName()));
+
+        try {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line;
+
+            while((line = bufferedReader.readLine()) != null) {
+                oelList.add(line);
+            }
+            bufferedReader.close();
+            Collections.sort(oelList);
+
+
+        } catch (IOException e) {
+            Log.d("TESTINGREAD", e.getMessage());
+        }
+    }
+
+    private void populateSjusserList() {
+        InputStream inputStream = activity.getResources().openRawResource(activity.getResources().getIdentifier("sjusser", "raw", activity.getPackageName()));
+
+        try {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line;
+
+            while((line = bufferedReader.readLine()) != null) {
+                sjusserList.add(line);
+            }
+            bufferedReader.close();
+            Collections.sort(sjusserList);
+
+
+        } catch (IOException e) {
+            Log.d("TESTINGREAD", e.getMessage());
+        }
+    }
+
+    private void populateVarmeDrikkeList() {
+        InputStream inputStream = activity.getResources().openRawResource(activity.getResources().getIdentifier("varme_drikke", "raw", activity.getPackageName()));
+
+        try {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line;
+
+            while((line = bufferedReader.readLine()) != null) {
+                varmeDrikkeList.add(line);
+            }
+            bufferedReader.close();
+            Collections.sort(varmeDrikkeList);
 
 
         } catch (IOException e) {
