@@ -32,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/drinks" />
+        app:srcCompat="@drawable/fp_drinks" />
 
     <ImageView
         android:id="@+id/imageVarmeDrikke"
@@ -47,7 +47,7 @@
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/varme_drikke" />
+        app:srcCompat="@drawable/fp_varme_drikke" />
 
     <ImageView
         android:id="@+id/imageOel"
@@ -62,7 +62,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline5"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/oel" />
+        app:srcCompat="@drawable/fp_oel" />
 
     <ImageView
         android:id="@+id/imageSjusser"
@@ -77,7 +77,7 @@
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/guideline5"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/sjusser" />
+        app:srcCompat="@drawable/fp_sjusser" />
 
     <ImageView
         android:id="@+id/oelBar"
