@@ -48,7 +48,8 @@
         android:layout_marginStart="8dp"
         android:text="Glas:\n\t“Krystalglas” \n\nIngrediens:\n\t4 cl. Smirnoff Vodka \n\tGinger Beer \n\nFremgangsmåde: \n\tGlasset fyldes til en cm. under kanten med is. \n\tGlasset fyldes til en cm. under kanten med is. \n\tDerefter tilsættes ingredienserne lag på lag. \n\nPynt: \n\tLime skiver"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="24dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
