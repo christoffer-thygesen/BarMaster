@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
@@ -18,6 +19,7 @@ public class PacketRecipe implements Serializable, Comparator<PacketRecipe> {
     private String servingDesc;
     private String garnish;
     private int drinkImage;
+    private ArrayList<String> lines;
 
     public PacketRecipe(String drinkName, String glassType, String ingredients, String servingDesc, String garnish, int drinkImage) {
         this.drinkName = drinkName;
@@ -26,6 +28,14 @@ public class PacketRecipe implements Serializable, Comparator<PacketRecipe> {
         this.servingDesc = servingDesc;
         this.garnish = garnish;
         this.drinkImage = drinkImage;
+    }
+
+    public ArrayList<String> getLines() {
+        return lines;
+    }
+
+    public void setLines(ArrayList<String> lines) {
+        this.lines = lines;
     }
 
     public PacketRecipe() {}

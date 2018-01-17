@@ -20,10 +20,6 @@ public class Controller {
     private static Controller instance;
     private static Activity activity;
     private String nt = "\n\t";
-    private ArrayList<String> drinksList;
-    private ArrayList<String> oelList;
-    private ArrayList<String> sjusserList;
-    private ArrayList<String> varmeDrikkeList;
 
     private ArrayList<PacketRecipe> packetOelList;
     private ArrayList<PacketRecipe> packetDrinkList;
@@ -33,11 +29,6 @@ public class Controller {
     private Controller(Activity activity) {
         //private constructor
         this.activity = activity;
-
-        drinksList = new ArrayList<>();
-        oelList = new ArrayList<>();
-        sjusserList = new ArrayList<>();
-        varmeDrikkeList = new ArrayList<>();
 
         packetOelList           = new ArrayList<>();
         packetDrinkList         = new ArrayList<>();
@@ -60,22 +51,6 @@ public class Controller {
         }
 
         return instance;
-    }
-
-    public ArrayList<String> getDrinksList() {
-        return drinksList;
-    }
-
-    public ArrayList<String> getOelList() {
-        return oelList;
-    }
-
-    public ArrayList<String> getSjusserList() {
-        return sjusserList;
-    }
-
-    public ArrayList<String> getVarmeDrikkeList() {
-        return varmeDrikkeList;
     }
 
     public ArrayList<PacketRecipe> getPacketOelList() {
@@ -101,240 +76,397 @@ public class Controller {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
+            ArrayList<String> lines;
+            int image;
+            String glassLine; //glass type
+            String denRigtigeVersion;
+            String ingredients;
+            String servingDesc;
+            String garnish;
 
             while((line = bufferedReader.readLine()) != null) {
-                drinksList.add(line);
-
-                String glassLine; //glass type
-                String ingredients;
-                String servingDesc;
-                String garnish;
-                String denRigtigeVersion;
-
-                int image;
 
                 switch (line) {
                     case "Moscow Mule":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Glasset fyldes til en cm. under kanten med is.\n\tDerefter tilsættes ingredienserne lag på lag.";
-                        ingredients = "4 cl. Vodka \n\tGinger Beer";
-                        garnish = "Lime Skiver";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Vodka");
+                        lines.add("\tGinger Beer");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tGlasset fyldes til en cm. under kanten med is");
+                        lines.add("\tDerefter tilsættes ingredienserne lag på lag");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\tLime skiver");
+
                         image = R.drawable.drinks_moscow_mule;
                         break;
                     case "White Russian":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        ingredients = "2 cl. Smirnoff Vodka\n\t2 cl. Kahlua\n\tMælk";
-                        servingDesc = "Shaker/glas fyldes med en skefuld is.\n\tDerefter tilsættes ingredienserne og shakes.\n\tBONUS: der kan max shake 2 ad gangen\n\tSPØRG evt gæsten; \"skal den shakes?\"";
-                        garnish = "";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t2 cl. Smirnoff Vodka");
+                        lines.add("\t2 cl. Kahlua");
+                        lines.add("\tMælk");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tShaker/glas fyldes med en skefuld is");
+                        lines.add("\tDerefter tilsættes ingredienserne og shakes");
+                        lines.add("");
+                        lines.add("BONUS:");
+                        lines.add("\tDer kan max shake 2 ad gangen");
+                        lines.add("\tSPØRG evt gæsten; \"skal den shakes?\"");
+
                         image = R.drawable.drinks_white_russian;
                         break;
                     case "Tom Collins":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Put Gin, Lemon, Sugar Cane, Halve Citronskiver" + nt + "Tilsæt isterninger" + nt + "Shakes" + nt + "Toppes med danskvand";
-                        ingredients = "4 cl. Tanqueray Gin" + nt + "2 cl. Monin Lemon Rantcho" + nt + "2 cl. Monin Pure Sugar Cane" + nt + "4 halve citronskiver" + nt + "Danskvand" + nt + "Isterninger";
                         garnish = "Citron skiver";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Tanqueray Gin");
+                        lines.add("\t2 cl. Monin Lemon Rantcho");
+                        lines.add("\t2 cl. Monin Pure Sugar Cane");
+                        lines.add("\t4 halve citronskiver");
+                        lines.add("\tDanskvand");
+                        lines.add("\tIsterninger");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tPut Gin, Lemon, Sugar Cane, Halve Citronskiver");
+                        lines.add("\tTilsæt isterninger");
+                        lines.add("\tShaker");
+                        lines.add("\tToppes med danskvand");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
                         image = R.drawable.drinks_tom_collins;
                         break;
                     case "Strawberry Daiquiri":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Put alle ingredienserne i blenderen" + nt + "Kør på program 4";
-                        ingredients = "4 cl. Bacardi Rom" + nt + "2 cl. Monin Lemon Rantcho" + nt + "2 cl. Monin Fraise" + nt +
-                                "3 sec jævnt tryk - Monin Pure Jordbær" + nt + "Præcis 1 skefuld is med den sorte isske";
                         garnish = "2 lime både";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Bacardi Rom");
+                        lines.add("\t2 cl. Monin Lemon Rantcho");
+                        lines.add("\t2 cl. Monin Fraise");
+                        lines.add("\t3 sec jævnt tryk - Monin Pure Jordbær");
+                        lines.add("\tPræcis 1 skefuld is med den sorte isske");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tPut alle ingredienserne i blenderen");
+                        lines.add("\tKør på program 4");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
+
                         image = R.drawable.drinks_strawberry_daiquiri;
                         break;
                     case "Mango Daiquiri":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Put alle ingredienserne i blenderen" + nt + "Kør på program 4";
-                        ingredients = "4 cl. Bacardi Rom" + nt + "2 cl. Monin Lemon Rantcho" + nt + "2 cl. Monin Fraise" + nt +
-                                "3 sec jævnt tryk - Monin Pure Mango" + nt + "Præcis 1 skefuld is med den sorte isske";
                         garnish = "2 lime både";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Bacardi Rom");
+                        lines.add("\t2 cl. Monin Lemon Rantcho");
+                        lines.add("\t2 cl. Monin Fraise");
+                        lines.add("\t3 sec jævnt tryk - Monin Pure Mango");
+                        lines.add("\tPræcis 1 skefuld is med den sorte isske");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tPut alle ingredienserne i blenderen");
+                        lines.add("\tKør på program 4");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
                         image = R.drawable.drinks_mango_daiquiri;
                         break;
                     case "Mango Margarita":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Put alle ingredienserne i blenderen" + nt + "Kør på program 4";
-                        ingredients = "4 cl. Tequila" + nt +
-                                "2 cl. Monin Lemon Rantcho" + nt +
-                                "3 sec jævnt tryk - Monin Pure Mango" + nt +
-                                "Præcis 1 skefuld is med den sorte isske";
                         garnish = "2 lime både";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Tequila");
+                        lines.add("\t2 cl. Monin Lemon Rantcho");
+                        lines.add("\t2 cl. Monin Fraise");
+                        lines.add("\t3 sec jævnt tryk - Monin Pure Mango");
+                        lines.add("\tPræcis 1 skefuld is med den sorte isske");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tPut alle ingredienserne i blenderen");
+                        lines.add("\tKør på program 4");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
                         image = R.drawable.drinks_mango_margarita;
                         break;
                     case "Pina Colada":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
                         servingDesc = "Bland alle ingredienserne.\n" +
                                 nt +
                                 "Shakes";
-                        ingredients = "4 cl. Bacardi Rom" +
-                                nt +
-                                "1,5 - 2 cl. Monin Coco" +
-                                nt +
-                                "8 cl. ananas juice" +
-                                nt +
-                                "Et lag med 2 cm." +
-                                "Isterninger";
                         garnish = "Appelsin skiver";
+                        garnish = "2 lime både";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Bacardi Rom");
+                        lines.add("\t1,5 - 2 cl. Monin Coco");
+                        lines.add("\t8 cl. ananas juice");
+                        lines.add("\tEt lag med 2 cm isterninger");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tBland alle ingredienserne");
+                        lines.add("\tShakes");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
                         image = R.drawable.drinks_pina_colada;
                         break;
                     case "Dark 'n' Stormy":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        denRigtigeVersion = "Fyld 2/3 af glasset med Ginger Beer, sukker og juice" + nt + "Hæld rommen i glasset, så det ligner et stormvejr";
-                        servingDesc = "Rom, Angostrua, Lime Juice, Sugar Cane i shaker" +
-                                nt +
-                                "Shakes og toppes med Ginger Beer" + "\nDen rigtige måde:"+ nt + denRigtigeVersion;
-                        ingredients = "4 cl. Bacardi 8 års rom" +
-                                nt +
-                                "2 cl. Monin Lime Juice" +
-                                nt +
-                                "2 cl. Monin Sugar Cane" +
-                                nt +
-                                "Ginger Beer";
                         garnish = "2 Lime både";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Bacardi 8 års rom");
+                        lines.add("\t5 dråber Angostrua bitter");
+                        lines.add("\t2 cl. Monin Lime Juice");
+                        lines.add("\t2 cl. Monin Sugar Cane");
+                        lines.add("\tGinger Beer");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tRom, Angostrua, Lime Juice, Sugar Cane i shaker");
+                        lines.add("\tShakes og toppes med Ginger Beer");
+                        lines.add("");
+                        lines.add("Den rigtige måde:");
+                        lines.add("\tFyld 2/3 af glasset med Ginger Beer, sukker og juice");
+                        lines.add("\tHæld rommen i glasset, så det ligner et stormvejr");
+                        lines.add("\t(hold det bitter væk fra drinken)");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
                         image = R.drawable.drinks_dark_and_stormy;
                         break;
                     case "Old Fashioned":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        denRigtigeVersion = "Bland spsk. sukker med 2-4 dashes af bitter og mas det sammen" + nt + "fyld isterninger i glasset og hæld whisky'en over";
-                        servingDesc = "Glasset fyldes med KUN 4 isterninger" +
-                                nt +
-                                "Derefter tilsættes ingredienserne lag på lag" + "\nDen rigtige måde:"+ nt + denRigtigeVersion;
-                        ingredients = "6 cl. Jack Daniels" +
-                                nt +
-                                "3 dråber Angostrua bitter" +
-                                nt +
-                                "1 cl. Monin Pure Sugar Cane";
-                        garnish = "";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t6 cl. Jack Daniels");
+                        lines.add("\t3 dråber Angostrua bitter");
+                        lines.add("\t1 cl. Monin Pure Sugar Cane");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tGlasset fyldes med KUN 4 isterninger");
+                        lines.add("\tDerefter tilsættes ingredienserne lag på lag");
+                        lines.add("");
+                        lines.add("Den rigtige måde:");
+                        lines.add("\tBland spsk. sukker med 2-4 dashes ");
+                        lines.add("\taf bitter og mas det sammen");
+                        lines.add("\tfyld isterninger i glasset og hæld whisky'en i");
+
                         image = R.drawable.drinks_tennessee_old_fashioned;
                         break;
                     case "Long Island Iced Tea":
+                        lines = new ArrayList<>();
                         glassLine = "Stor fadølsglas";
-                        servingDesc = "Put 6 cl. Cola i glasset" +
-                                nt +
-                                "Put al. Spiritus og Lime Juice i en shaker" +
-                                nt +
-                                "Shakers og hænges over Cola";
-                        ingredients = "2 cl. Vodka" +
-                                nt +
-                                "2 cl. Bacardi Rom" +
-                                nt +
-                                "2 cl. Gin" +
-                                nt +
-                                "2 cl. Tequila" +
-                                nt +
-                                "2 cl. Cointreau" +
-                                nt +
-                                "2 cl. Monin Lime Juice" +
-                                nt +
-                                "Cola";
-                        garnish = "";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t2 cl. Vodka");
+                        lines.add("\t2 cl. Bacardi Rom");
+                        lines.add("\t2 cl. Gin");
+                        lines.add("\t2 cl. Tequila");
+                        lines.add("\t2 cl. Cointreau");
+                        lines.add("\t2 cl. Monin Lime Juice");
+                        lines.add("\tCola");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tPut 6 cl. Cola i glasset");
+                        lines.add("\tPut al spiritus og lime juice i en shaker");
+                        lines.add("\tShakers og hænges over Cola");
+
                         image = R.drawable.drinks_long_island_iced_tea;
                         break;
                     case "Cuba Libre":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Glasset fyldes til en cm. under kanten med is" +
-                                nt +
-                                "Derefter tilsættes ingredienserne lag på lag";
-                        ingredients = "4 cl. Bacardi Rom" +
-                                nt +
-                                "Cola";
                         garnish = "Lime både";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Bacardi Rom");
+                        lines.add("\tCola");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tGlasset fyldes til en cm. under kanten med is");
+                        lines.add("\tDerefter tilsættes ingredienserne lag på lag");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
                         image = R.drawable.drinks_cuba_libre;
                         break;
                     case "Harvey Wallbanger":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
                         servingDesc = "Glasset fyldes til en cm. under kanten med is" +
                                 nt +
                                 "Derefter tilsættes ingredienserne lag på lag";
-                        ingredients = "2 cl. Smirnoff Vodka" +
-                                nt +
-                                "Licor 43" +
-                                nt +
-                                "Appelsin Juice";
+
                         garnish = "Appelsin skriver";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t2 cl. Smirnoff Vodka");
+                        lines.add("\tLicor 43");
+                        lines.add("\tAppelsin Juice");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tGlasset fyldes til en cm. under kanten med is");
+                        lines.add("\tDerefter tilsættes ingredienserne lag på lag");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
                         image = R.drawable.drinks_harvey_wallbanger;
                         break;
                     case "Gin & Tonic":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Glasset fyldes til en cm. under kanten med is" +
-                                nt +
-                                "Derefter tilsættes ingredienserne lag på lag";
-                        ingredients = "2 cl. Tanqueray Gin" +
-                                nt +
-                                "Schweppes Tonic";
                         garnish = "Agurk eller lime";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t2 cl. Tanqueray Gin");
+                        lines.add("\tSchweppes Tonic");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tGlasset fyldes til en cm. under kanten med is");
+                        lines.add("\tDerefter tilsættes ingredienserne lag på lag");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
                         image = R.drawable.drinks_gin_and_tonic;
                         break;
                     case "Gin & Lemon":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Glasset fyldes til en cm. under kanten med is" +
-                                nt +
-                                "Derefter tilsættes ingredienserne lag på lag";
-                        ingredients = "2 cl. Tanqueray Gin" +
-                                nt +
-                                "Schweppes Lemon (Postmix)";
                         garnish = "Lime skive";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t2 cl. Tanqueray Gin");
+                        lines.add("\tSchweppes Lemon (Postmix)");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tGlasset fyldes til en cm. under kanten med is");
+                        lines.add("\tDerefter tilsættes ingredienserne lag på lag");
+                        lines.add("");
+                        lines.add("Pynt:");
+                        lines.add("\t" + garnish);
                         image = R.drawable.drinks_gin_and_lemon;
                         break;
                     case "Rød Ninja":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Glasset fyldes til en cm. under kanten med is" +
-                                nt +
-                                "Derefter tilsættes ingredienserne lag på lag";
-                        ingredients = "2 cl. Smirnoff Raspberry" +
-                                nt +
-                                "Passionssodavand" +
-                                nt +
-                                "Toppes med Grenadine";
-                        garnish = "";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t2 cl. Smirnoff Raspberry");
+                        lines.add("\tPassionssodavand");
+                        lines.add("\tToppes med Grenadine");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tGlasset fyldes til en cm. under kanten med is");
+                        lines.add("\tDerefter tilsættes ingredienserne lag på lag");
+                        lines.add("");
                         image = R.drawable.drinks_roed_ninja;
                         break;
                     case "Key West Lemonade, Glas":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
-                        servingDesc = "Glasset fyldes halvt med is, appelsiner, lime og citroner" +
-                                nt +
-                                "Derefter tilsættes ingredienserne lag på lag";
-                        ingredients = "2 cl. Smirnoff Vodka" +
-                                nt +
-                                "Appelsin skiver" +
-                                nt +
-                                "Lime både" +
-                                nt +
-                                "Citron skiver" +
-                                nt +
-                                "Lemonade";
-                        garnish = "";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t2 cl. Smirnoff Vodka");
+                        lines.add("\tAppelsin skiver");
+                        lines.add("\tLime både");
+                        lines.add("\tCitron skiver");
+                        lines.add("\tLemonade");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tGlasset fyldes halvt med is, appelsiner, lime og citroner");
                         image = R.drawable.drinks_key_west_lemonade_glas;
                         break;
                     case "Key West Lemonade, Kande":
+                        lines = new ArrayList<>();
                         glassLine = "Kande";
-                        servingDesc = "Kanden fyldes en 3. del med is, appelsiner, lime og citroner" +
-                                nt +
-                                "Derefter tilsættes ingredienserne lag på lag";
-                        ingredients = "6 cl. Smirnoff Vodka" +
-                                nt +
-                                "Appelsin skiver" +
-                                nt +
-                                "Lime både" +
-                                nt +
-                                "Citron skiver" +
-                                nt +
-                                "Lemonade";
-                        garnish = "";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t6 cl. Smirnoff Vodka");
+                        lines.add("\tAppelsin skiver");
+                        lines.add("\tLime både");
+                        lines.add("\tCitron skiver");
+                        lines.add("\tLemonade");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tKanden fyldes en 3. del med is, appelsiner, lime og citroner");
+                        lines.add("\tDerefter tilsættes ingredienserne lag på lag");
+
                         image = R.drawable.drinks_key_west_lemonade_kande;
                         break;
                     case "Whiskey Sour":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
                         servingDesc = "Shakes med 4-5 isteringer";
-                        ingredients = "4 cl. Jameson Whiskey" +
-                                nt +
-                                "2 cl . Monin Sugar Cane" +
-                                nt +
-                                "2 cl. Monin Rantcho Lemon";
-                        garnish = "";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Jameson Whiskey");
+                        lines.add("\t2 cl . Monin Sugar Cane");
+                        lines.add("\t2 cl. Monin Rantcho Lemon");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tShakes med 4-5 isteringer");
                         image = R.drawable.drinks_whiskey_sour;
                         break;
                     case "Bloody Mary":
+                        lines = new ArrayList<>();
                         glassLine = "Krystalglas";
                         servingDesc = "Glasset fyldes til en cm. under kanten med is" +
                                 nt +
@@ -345,18 +477,32 @@ public class Controller {
                                 nt +
                                 "Tomat Juice";
                         garnish = "INFO: Spørgsmål fra gæsten ang salt, peber, og selleri. Så er det allerede i den tomat juice vi bruger";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Smirnoff Vodka");
+                        lines.add("\t3 små dråber tabasco");
+                        lines.add("\tTomat Juice");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tGlasset fyldes til en cm. under kanten med is");
+                        lines.add("\tDerefter tilsættes ingredienserne lag på lag");
+                        lines.add("");
+                        lines.add("INFO:");
+                        lines.add("\tSpørgsmål fra gæsten ang salt, peber, og selleri.");
+                        lines.add("\tSå er det allerede i den tomat juice vi bruger");
                         image = R.drawable.drinks_bloody_mary;
                         break;
                     default:
-                        glassLine = "";
-                        servingDesc = "";
-                        ingredients = "";
-                        garnish = "";
+                        lines = new ArrayList<>();
+
                         image = R.drawable.blank;
                         break;
                 }
 
-                PacketRecipe temp = new PacketRecipe(line, glassLine, ingredients, servingDesc, garnish, image);
+                PacketRecipe temp = new PacketRecipe(line, "", "", "", "", image);
+                temp.setLines(lines);
                 packetDrinkList.add(temp);
             }
             bufferedReader.close();
@@ -376,43 +522,67 @@ public class Controller {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
+            ArrayList<String> lines;
+            int image;
+            String glassLine; //glass type
 
             while((line = bufferedReader.readLine()) != null) {
 
-                String glassLine;
-                int image;
                 switch (line) {
                     case "Tuborg Flaskeøl": case "Carlsberg Flaskeøl": case "Guld Tuborg":
+                        lines = new ArrayList<>();
                         glassLine = "Intet. Serveres i flasken";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.oel_flaskeoel;
                         break;
                     case "Budweiser":
+                        lines = new ArrayList<>();
                         glassLine = "Intet. Serveres i flasken";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.oel_budweiser;
                         break;
                     case "Corona":
-                        glassLine = "Intet. Serveres i flasken \n\nSæt et stykke lime i halsen på flasken. Så kan gæsten selv vælge om de vil have lime i eller ej.";
+                        lines = new ArrayList<>();
+                        glassLine = "Intet. Serveres i flasken";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
+                        lines.add("Info:");
+                        lines.add("\tSæt et stykke lime i halsen på flasken,");
+                        lines.add("\tså kan gæsten selv vælge om ");
+                        lines.add("\tde vil have lime i eller ej");
                         image = R.drawable.oel_corona;
                         break;
                     case "Hoegaarden Wit":
+                        lines = new ArrayList<>();
                         glassLine = "Stort fadølsglas";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.oel_hoegaarden_wit;
                         break;
                     case "Grimbergen Double-Ambree":
+                        lines = new ArrayList<>();
                         glassLine = "Grimbergen glas";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.oel_grimbergen_double_ambree;
                         break;
                     case "Erdinger Weissbier":
+                        lines = new ArrayList<>();
                         glassLine = "Erdinger glas";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.oel_erdinger_weissbier;
                         break;
                     default:
-                        glassLine = "i et glas";
+                        lines = new ArrayList<>();
                         image = R.drawable.blank;
                         break;
                 }
 
-                PacketRecipe temp = new PacketRecipe(line, glassLine, "", "", "", image);
+                PacketRecipe temp = new PacketRecipe(line, "", "", "", "", image);
+                temp.setLines(lines);
                 packetOelList.add(temp);
             }
             bufferedReader.close();
@@ -432,40 +602,60 @@ public class Controller {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
+            ArrayList<String> lines;
             String line;
-            String glassLine; //glass type
             int image;
+            String glassLine; //glass type
 
             while((line = bufferedReader.readLine()) != null) {
 
                 switch (line) {
                     case "Ron Zacapa":
+                        lines = new ArrayList<>();
                         glassLine = "Ron Zacapa glas";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.sjusser_ron_zacapa;
                         break;
                     case "Ron Zacapa OX":
+                        lines = new ArrayList<>();
                         glassLine = "Ron Zacapa glas";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.sjusser_ron_zacapa;
                         break;
                     case "Jack Daniels Honey":
+                        lines = new ArrayList<>();
                         glassLine = "Jack Daniel’s glas";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.sjusser_jack_daniels_honey;
                         break;
                     case "Gentlemen Jack":
+                        lines = new ArrayList<>();
                         glassLine = "Jack Daniel’s glas";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.sjusser_jack_daniels_honey;
                         break;
                     case "Jack Daniels Single Barrel":
+                        lines = new ArrayList<>();
                         glassLine = "Jack Daniel’s glas";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.sjusser_jack_daniels_honey;
                         break;
                     default:
+                        lines = new ArrayList<>();
                         glassLine = "";
+                        lines.add("Glas:");
+                        lines.add("\t" + glassLine);
                         image = R.drawable.blank;
                         break;
                 }
 
-                PacketRecipe temp = new PacketRecipe(line, glassLine, "", "", "", image);
+                PacketRecipe temp = new PacketRecipe(line, "", "", "", "", image);
+                temp.setLines(lines);
                 packetSjusserList.add(temp);
             }
             bufferedReader.close();
@@ -484,99 +674,107 @@ public class Controller {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
+            ArrayList<String> lines;
             String line;
-            String glassLine; //glass type
-            String ingredients;
-            String servingDesc;
-            String garnish;
             int image;
 
             while((line = bufferedReader.readLine()) != null) {
 
                 switch (line) {
                     case "Irish Coffee":
-                        glassLine = "Kaffeglas";
-                        ingredients = "4 cl. Jameson Whiskey" +
-                                nt +
-                                "Kandispind" +
-                                nt +
-                                "Kaffe" +
-                                nt +
-                                "Flødeskum";
-                        servingDesc = "Tilsæt Whiskey og Kandispind" +
-                                nt +
-                                "Derefter kaffe" +
-                                nt +
-                                "og til sidst flødeskum";
-                        garnish = "";
+                        lines = new ArrayList<>();
+                        lines.add("Glas:");
+                        lines.add("\tKaffeglas");
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Jameson Whiskey");
+                        lines.add("\tKandispind");
+                        lines.add("\tKaffe");
+                        lines.add("\tFlødeskum");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tTilsæt whiskey og kandispind");
+                        lines.add("\tDerefter kaffe");
+                        lines.add("\tog til sidst flødeskum");
+
                         image = R.drawable.varme_irish_coffee;
                         break;
                     case "Mexican Coffee":
-                        glassLine = "Kaffeglas";
-                        ingredients = "2 cl. Tequila" +
-                                nt +
-                                "2 cl. Kahlua" +
-                                nt +
-                                "Kaffe" +
-                                nt +
-                                "Flødeskum";
-                        servingDesc = "Tilsæt Kahlua og tequila\n" +
-                                "\n" +
-                                "Derefter kaffe\n" +
-                                "\n" +
-                                "og til sidst flødeskum";
-                        garnish = "";
+                        lines = new ArrayList<>();
+                        lines.add("Glas:");
+                        lines.add("\tKaffeglas");
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t2 cl. Tequila");
+                        lines.add("\t2 cl. Kahlua");
+                        lines.add("\tKaffe");
+                        lines.add("\tFlødeskum");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tTilsæt Kahlua og tequila");
+                        lines.add("\tDerefter kaffe");
+                        lines.add("\tog til sidst flødeskum");
+
                         image = R.drawable.varme_mexican_coffee;
                         break;
                     case "Kaffe & Baileys":
-                        glassLine = "Kaffeglas";
-                        ingredients = "4 cl. Baileys" +
-                                nt +
-                                "Kaffe";
-                        servingDesc = "Tilsæt Baileys og kaffe";
-                        garnish = "";
+                        lines = new ArrayList<>();
+                        lines.add("Glas:");
+                        lines.add("\tKaffeglas");
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Baileys");
+                        lines.add("\tKaffe");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tTilsæt Baileys og kaffe");
+
                         image = R.drawable.varme_kaffe_og_baileys;
                         break;
                     case "Spanish Coffee":
-                        glassLine = "Kaffeglas";
-                        ingredients = "4 cl. Licor 43" +
-                                nt +
-                                "Kaffe" +
-                                nt +
-                                "Flødeskum";
-                        servingDesc = "Tilsæt Licor 43" +
-                                nt +
-                                "Derefter kaffe" +
-                                nt +
-                                "og til sidst flødeskum";
-                        garnish = "";
+                        lines = new ArrayList<>();
+                        lines.add("Glas:");
+                        lines.add("\tKaffeglas");
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t4 cl. Licor 43");
+                        lines.add("\tKaffe");
+                        lines.add("\tFlødeskum");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tTilsæt Licor 43");
+                        lines.add("\tDerefter kaffe");
+                        lines.add("\tog til sidst flødeskum");
+
                         image = R.drawable.varme_spanish_coffee;
                         break;
                     case "Hot Shots":
-                        glassLine = "Højt shotsglas";
-                        ingredients = "2 cl. Licor 43" +
-                                nt +
-                                "Kaffe" +
-                                nt +
-                                "Flødeskum";
-                        servingDesc = "Tilsæt Licor 43" +
-                                nt +
-                                "Hold barskeen henover Licor 43’en og hæld kaffe på. Så det ligger sig i synlige lag" +
-                                nt +
-                                "og til sidst flødeskum";
-                        garnish = "";
+                        lines = new ArrayList<>();
+                        lines.add("Glas:");
+                        lines.add("\tHøjt shotsglas");
+                        lines.add("");
+                        lines.add("Ingredienser:");
+                        lines.add("\t2 cl. Licor 43");
+                        lines.add("\tKaffe");
+                        lines.add("\tFlødeskum");
+                        lines.add("");
+                        lines.add("Fremgangsmåde:");
+                        lines.add("\tTilsæt Licor 43");
+                        lines.add("\tHold barskeen henover Licor 43’en");
+                        lines.add("\tog hæld kaffe på, så det ligger sig i synlige lag");
+                        lines.add("\tog til sidst flødeskum");
+
                         image = R.drawable.varme_hot_shots;
                         break;
                     default:
-                        glassLine = "";
-                        ingredients = "";
-                        servingDesc = "";
-                        garnish = "";
+                        lines = new ArrayList<>();
+
                         image = R.drawable.blank;
                         break;
                 }
 
-                PacketRecipe temp = new PacketRecipe(line, glassLine, ingredients, servingDesc, garnish, image);
+                PacketRecipe temp = new PacketRecipe(line, "", "", "", "", image);
+                temp.setLines(lines);
                 packetVarmeDrikkeList.add(temp);
             }
             bufferedReader.close();

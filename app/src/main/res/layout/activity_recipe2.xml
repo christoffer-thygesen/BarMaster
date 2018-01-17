@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,31 +26,45 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/drinkView"
+    android:id="@+id/drinkView"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:adjustViewBounds="true"
+    android:contentDescription="a drink"
+    android:scaleType="centerCrop"
+    android:visibility="visible"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toEndOf="@+id/button"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1.0"
+    app:srcCompat="@drawable/drinks_long_island_iced_tea" />
+
+    <ImageView
+        android:id="@+id/blackground"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="a drink"
-        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/drinks_long_island_iced_tea" />
+        app:srcCompat="@android:color/background_dark" />
 
-    <TextView
-        android:id="@+id/recipeText"
+    <ListView
+        android:id="@+id/recipeListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:text="Glas:\n\t“Krystalglas” \n\nIngrediens:\n\t4 cl. Smirnoff Vodka \n\tGinger Beer \n\nFremgangsmåde: \n\tGlasset fyldes til en cm. under kanten med is. \n\tGlasset fyldes til en cm. under kanten med is. \n\tDerefter tilsættes ingredienserne lag på lag. \n\nPynt: \n\tLime skiver"
-        android:textColor="#FFFFFF"
-        android:textSize="24dp"
-
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/drinkView" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+    </ListView>
+
 </android.support.constraint.ConstraintLayout>
