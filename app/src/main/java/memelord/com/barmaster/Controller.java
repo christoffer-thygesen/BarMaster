@@ -19,6 +19,7 @@ public class Controller {
 
     private static Controller instance;
     private static Activity activity;
+    private String nt = "\n\t";
     private ArrayList<String> drinksList;
     private ArrayList<String> oelList;
     private ArrayList<String> sjusserList;
@@ -26,6 +27,8 @@ public class Controller {
 
     private ArrayList<PacketRecipe> packetOelList;
     private ArrayList<PacketRecipe> packetDrinkList;
+    private ArrayList<PacketRecipe> packetSjusserList;
+    private ArrayList<PacketRecipe> packetVarmeDrikkeList;
 
     private Controller(Activity activity) {
         //private constructor
@@ -36,14 +39,15 @@ public class Controller {
         sjusserList = new ArrayList<>();
         varmeDrikkeList = new ArrayList<>();
 
-        packetOelList = new ArrayList<>();
-        packetDrinkList = new ArrayList<>();
+        packetOelList           = new ArrayList<>();
+        packetDrinkList         = new ArrayList<>();
+        packetSjusserList       = new ArrayList<>();
+        packetVarmeDrikkeList   = new ArrayList<>();
 
         populateDrinksList();
         populateOelList();
         populateSjusserList();
         populateVarmeDrikkeList();
-
     }
 
 
@@ -82,6 +86,14 @@ public class Controller {
         return packetDrinkList;
     }
 
+    public ArrayList<PacketRecipe> getPacketSjusserList() {
+        return packetSjusserList;
+    }
+
+    public ArrayList<PacketRecipe> getPacketVarmeDrikkeList() {
+        return packetVarmeDrikkeList;
+    }
+
     private void populateDrinksList() {
         InputStream inputStream = activity.getResources().openRawResource(activity.getResources().getIdentifier("drinks", "raw", activity.getPackageName()));
 
@@ -100,7 +112,6 @@ public class Controller {
                 String denRigtigeVersion;
 
                 int image;
-                String nt = "\n\t";
 
                 switch (line) {
                     case "Moscow Mule":
@@ -420,14 +431,46 @@ public class Controller {
         try {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
             String line;
+            String glassLine; //glass type
+            int image;
 
             while((line = bufferedReader.readLine()) != null) {
-                sjusserList.add(line);
+
+                switch (line) {
+                    case "Ron Zacapa":
+                        glassLine = "Ron Zacapa glas";
+                        image = R.drawable.sjusser_ron_zacapa;
+                        break;
+                    case "Ron Zacapa OX":
+                        glassLine = "Ron Zacapa glas";
+                        image = R.drawable.sjusser_ron_zacapa;
+                        break;
+                    case "Jack Daniels Honey":
+                        glassLine = "Jack Daniel’s glas";
+                        image = R.drawable.sjusser_jack_daniels_honey;
+                        break;
+                    case "Gentlemen Jack":
+                        glassLine = "Jack Daniel’s glas";
+                        image = R.drawable.sjusser_jack_daniels_honey;
+                        break;
+                    case "Jack Daniels Single Barrel":
+                        glassLine = "Jack Daniel’s glas";
+                        image = R.drawable.sjusser_jack_daniels_honey;
+                        break;
+                    default:
+                        glassLine = "";
+                        image = R.drawable.blank;
+                        break;
+                }
+
+                PacketRecipe temp = new PacketRecipe(line, glassLine, "", "", "", image);
+                packetSjusserList.add(temp);
             }
             bufferedReader.close();
-            Collections.sort(sjusserList);
-
+            PacketRecipe packetRecipe = new PacketRecipe();
+            Collections.sort(packetDrinkList, packetRecipe);
 
         } catch (IOException e) {
             Log.d("TESTINGREAD", e.getMessage());
@@ -440,14 +483,105 @@ public class Controller {
         try {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
             String line;
+            String glassLine; //glass type
+            String ingredients;
+            String servingDesc;
+            String garnish;
+            int image;
 
             while((line = bufferedReader.readLine()) != null) {
-                varmeDrikkeList.add(line);
+
+                switch (line) {
+                    case "Irish Coffee":
+                        glassLine = "Kaffeglas";
+                        ingredients = "4 cl. Jameson Whiskey" +
+                                nt +
+                                "Kandispind" +
+                                nt +
+                                "Kaffe" +
+                                nt +
+                                "Flødeskum";
+                        servingDesc = "Tilsæt Whiskey og Kandispind" +
+                                nt +
+                                "Derefter kaffe" +
+                                nt +
+                                "og til sidst flødeskum";
+                        garnish = "";
+                        image = R.drawable.varme_irish_coffee;
+                        break;
+                    case "Mexican Coffee":
+                        glassLine = "Kaffeglas";
+                        ingredients = "2 cl. Tequila" +
+                                nt +
+                                "2 cl. Kahlua" +
+                                nt +
+                                "Kaffe" +
+                                nt +
+                                "Flødeskum";
+                        servingDesc = "Tilsæt Kahlua og tequila\n" +
+                                "\n" +
+                                "Derefter kaffe\n" +
+                                "\n" +
+                                "og til sidst flødeskum";
+                        garnish = "";
+                        image = R.drawable.varme_mexican_coffee;
+                        break;
+                    case "Kaffe & Baileys":
+                        glassLine = "Kaffeglas";
+                        ingredients = "4 cl. Baileys" +
+                                nt +
+                                "Kaffe";
+                        servingDesc = "Tilsæt Baileys og kaffe";
+                        garnish = "";
+                        image = R.drawable.varme_kaffe_og_baileys;
+                        break;
+                    case "Spanish Coffee":
+                        glassLine = "Kaffeglas";
+                        ingredients = "4 cl. Licor 43" +
+                                nt +
+                                "Kaffe" +
+                                nt +
+                                "Flødeskum";
+                        servingDesc = "Tilsæt Licor 43" +
+                                nt +
+                                "Derefter kaffe" +
+                                nt +
+                                "og til sidst flødeskum";
+                        garnish = "";
+                        image = R.drawable.varme_spanish_coffee;
+                        break;
+                    case "Hot Shots":
+                        glassLine = "Højt shotsglas";
+                        ingredients = "2 cl. Licor 43" +
+                                nt +
+                                "Kaffe" +
+                                nt +
+                                "Flødeskum";
+                        servingDesc = "Tilsæt Licor 43" +
+                                nt +
+                                "Hold barskeen henover Licor 43’en og hæld kaffe på. Så det ligger sig i synlige lag" +
+                                nt +
+                                "og til sidst flødeskum";
+                        garnish = "";
+                        image = R.drawable.varme_hot_shots;
+                        break;
+                    default:
+                        glassLine = "";
+                        ingredients = "";
+                        servingDesc = "";
+                        garnish = "";
+                        image = R.drawable.blank;
+                        break;
+                }
+
+                PacketRecipe temp = new PacketRecipe(line, glassLine, ingredients, servingDesc, garnish, image);
+                packetVarmeDrikkeList.add(temp);
             }
             bufferedReader.close();
-            Collections.sort(varmeDrikkeList);
-
+            PacketRecipe packetRecipe = new PacketRecipe();
+            Collections.sort(packetVarmeDrikkeList, packetRecipe);
 
         } catch (IOException e) {
             Log.d("TESTINGREAD", e.getMessage());

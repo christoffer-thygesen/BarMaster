@@ -46,11 +46,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.imageSjusser:
-                intent.putStringArrayListExtra("categoryPicked", controller.getSjusserList());
+                intent.putExtra("categoryPicked", controller.getPacketSjusserList());
                 break;
 
             case R.id.imageVarmeDrikke:
-                intent.putStringArrayListExtra("categoryPicked", controller.getVarmeDrikkeList());
+                intent.putExtra("categoryPicked", controller.getPacketVarmeDrikkeList());
                 break;
         }
         startActivity(intent);
