@@ -38,11 +38,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(MainActivity.this, DrinksActivity.class);
         switch (v.getId()) {
             case R.id.imageDrinks:
-                intent.putStringArrayListExtra("categoryPicked", controller.getDrinksList());
+                intent.putExtra("categoryPicked", controller.getPacketDrinkList());
                 break;
 
             case R.id.imageOel:
-                intent.putStringArrayListExtra("categoryPicked", controller.getOelList());
+                intent.putExtra("categoryPicked", controller.getPacketOelList());
                 break;
 
             case R.id.imageSjusser:

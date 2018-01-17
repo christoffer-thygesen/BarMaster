@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class DrinksActivity extends AppCompatActivity {
 
+    private ArrayList<PacketRecipe> oelPackets;
     private ListView result;
 
     @Override
@@ -24,7 +25,12 @@ public class DrinksActivity extends AppCompatActivity {
 
         result = findViewById(R.id.listviewDrinks);
 
-        ArrayList<String> objects = getIntent().getStringArrayListExtra("categoryPicked");
+        ArrayList<String> objects = new ArrayList<>();
+        oelPackets = (ArrayList<PacketRecipe>) getIntent().getSerializableExtra("categoryPicked");
+
+        for (PacketRecipe item : oelPackets) {
+            objects.add(item.getDrinkName());
+        }
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, objects);
         result.setAdapter(arrayAdapter);
@@ -33,6 +39,8 @@ public class DrinksActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(DrinksActivity.this, RecipeActivity.class);
+                //throw over the whole object this time, cool?
+                intent.putExtra("THIS_RECIPE", oelPackets.get(position));
                 startActivity(intent);
             }
         });
